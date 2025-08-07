@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Planes</h2>
+    <a href="{% url 'plane_create' %}" class="btn btn-primary mb-3">Add New Plane</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Plane Number</th>
+                <th>Model</th>
+                <th>Capacity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plane in planes %}
+            <tr>
+                <td>{{ plane.plane_number }}</td>
+                <td>{{ plane.model }}</td>
+                <td>{{ plane.capacity }}</td>
+                <td>
+                    <a href="{% url 'plane_update' plane.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No planes found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

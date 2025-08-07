@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Passengers</h2>
+    <a href="{% url 'passenger_create' %}" class="btn btn-primary mb-3">Add New Passenger</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>DNI</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for passenger in passengers %}
+            <tr>
+                <td>{{ passenger.first_name }}</td>
+                <td>{{ passenger.last_name }}</td>
+                <td>{{ passenger.dni }}</td>
+                <td>{{ passenger.email }}</td>
+                <td>{{ passenger.phone_number }}</td>
+                <td>
+                    <a href="{% url 'passenger_update' passenger.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No passengers found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
