@@ -17,6 +17,19 @@ class FlightForm(forms.ModelForm):
             'status',
             'price',
         ]
+        labels = {
+            'flight_number': 'Número de Vuelo',
+            'plane': 'Aeronave',
+            'departure_city': 'Ciudad de Salida',
+            'departure_date': 'Fecha de Salida',
+            'departure_time': 'Hora de Salida',
+            'arrival_city': 'Ciudad de Llegada',
+            'arrival_date': 'Fecha de Llegada',
+            'arrival_time': 'Hora de Llegada',
+            'duration': 'Duración',
+            'status': 'Estado',
+            'price': 'Precio',
+        }
         widgets = {
             'flight_number': forms.TextInput(attrs={'class': 'form-control'}),
             'plane': forms.Select(attrs={'class': 'form-control'}),
@@ -26,7 +39,7 @@ class FlightForm(forms.ModelForm):
             'arrival_city': forms.TextInput(attrs={'class': 'form-control'}),
             'arrival_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'arrival_time': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
-            'duration': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
+            'duration': forms.NumberInput(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
         }
@@ -40,6 +53,12 @@ class PlaneForm(forms.ModelForm):
             'rows',
             'columns',
         ]
+        labels = {
+            'model': 'Modelo',
+            'capacity': 'Capacidad',
+            'rows': 'Filas',
+            'columns': 'Columnas',
+        }
         widgets = {
             'model': forms.TextInput(attrs={'class': 'form-control'}),
             'capacity': forms.NumberInput(attrs={'class': 'form-control'}),

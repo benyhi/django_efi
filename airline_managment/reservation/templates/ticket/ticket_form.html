@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Crear Ticket</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_reservation" class="form-label">Reserva</label>
+            {{ form.reservation }}
+        </div>
+        <div class="mb-3">
+            <label for="id_bar_code" class="form-label">Código de Barras</label>
+            {{ form.bar_code }}
+        </div>
+        <div class="mb-3">
+            <label for="id_status" class="form-label">Estado</label>
+            {{ form.status }}
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Ticket</button>
+    </form>
+</div>
+{% endblock %}

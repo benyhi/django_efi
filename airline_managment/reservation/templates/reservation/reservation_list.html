@@ -9,7 +9,10 @@
                 <th>Vuelo</th>
                 <th>Pasajero</th>
                 <th>Número de Asiento</th>
+                <th>Código de Reserva</th>
                 <th>Fecha de Reserva</th>
+                <th>Precio</th>
+                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -18,8 +21,11 @@
             <tr>
                 <td>{{ reservation.flight }}</td>
                 <td>{{ reservation.passenger }}</td>
-                <td>{{ reservation.seat_number }}</td>
-                <td>{{ reservation.reservation_date }}</td>
+                <td>{{ reservation.seat.number }}</td>
+                <td>{{ reservation.code }}</td>
+                <td>{{ reservation.date }}</td>
+                <td>{{ reservation.price }}</td>
+                <td>{{ reservation.status }}</td>
                 <td>
                     <a href="{% url 'reservation_update' reservation.pk %}" class="btn btn-sm btn-warning">Editar</a>
                     <a href="{% url 'reservation_delete' reservation.pk %}" class="btn btn-sm btn-danger">Eliminar</a>

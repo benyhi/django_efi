@@ -13,6 +13,15 @@ class PassengerForm(forms.ModelForm):
             'birth_date',
             'dni_type',
         ]
+        labels = {
+            'first_name': 'Nombre',
+            'last_name': 'Apellido',
+            'dni': 'DNI',
+            'email': 'Correo electrónico',
+            'phone_number': 'Teléfono',
+            'birth_date': 'Fecha de nacimiento',
+            'dni_type': 'Tipo de DNI',
+        }
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),

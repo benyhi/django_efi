@@ -6,18 +6,20 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Número de Avion</th>
                 <th>Modelo</th>
                 <th>Capacidad</th>
+                <th>Filas</th>
+                <th>Columnas</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for plane in planes %}
             <tr>
-                <td>{{ plane.plane_number }}</td>
                 <td>{{ plane.model }}</td>
                 <td>{{ plane.capacity }}</td>
+                <td>{{ plane.rows }}</td>
+                <td>{{ plane.columns }}</td>
                 <td>
                     <a href="{% url 'plane_update' plane.pk %}" class="btn btn-sm btn-warning">Editar</a>
                 </td>

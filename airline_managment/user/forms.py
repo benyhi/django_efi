@@ -15,6 +15,14 @@ class UserForm(forms.ModelForm):
             'is_active',
             'is_staff',
         ]
+        labels = {
+            'username': 'Nombre de usuario',
+            'email': 'Correo electrónico',
+            'first_name': 'Nombre',
+            'last_name': 'Apellido',
+            'is_active': 'Activo',
+            'is_staff': 'Es staff',
+        }
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
@@ -59,6 +67,13 @@ class RegisterForm(forms.ModelForm):
             'last_name',
             'password',
         ]
+        labels = {
+            'username': 'Nombre de usuario',
+            'email': 'Correo electrónico',
+            'first_name': 'Nombre',
+            'last_name': 'Apellido',
+            'password': 'Contraseña',
+        }
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),

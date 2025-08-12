@@ -1,7 +1,12 @@
 from django import forms
-from .models import Reservation, Seat
+from .models import Reservation, Seat, Ticket
 
 class ReservationForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['seat'].queryset = Seat.objects.exclude(status='occupied')
+
     class Meta:
         model = Reservation
         fields = [
@@ -12,6 +17,14 @@ class ReservationForm(forms.ModelForm):
             'price',
             'status',
         ]
+        labels = {
+            'flight': 'Vuelo',
+            'passenger': 'Pasajero',
+            'seat': 'Asiento',
+            'code': 'Código de Reserva',
+            'price': 'Precio',
+            'status': 'Estado',
+        }
         widgets = {
             'flight': forms.Select(attrs={'class': 'form-control'}),
             'passenger': forms.Select(attrs={'class': 'form-control'}),
@@ -20,6 +33,18 @@ class ReservationForm(forms.ModelForm):
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
         }
+
+    def clean_seat(self):
+        seat = self.cleaned_data.get('seat')
+        if Reservation.objects.filter(seat=seat).exists():
+            raise forms.ValidationError("Este asiento ya está reservado.")
+        return seat
+    
+    def clean_code(self):
+        code = self.cleaned_data.get('code')
+        if Reservation.objects.filter(code=code).exists():
+            raise forms.ValidationError("Este código de reserva ya está en uso.")
+        return code
 
 class SeatForm(forms.ModelForm):
     class Meta:
@@ -32,11 +57,38 @@ class SeatForm(forms.ModelForm):
             'type',
             'status',
         ]
+        labels = {
+            'plane': 'Aeronave',
+            'number': 'Número',
+            'row': 'Fila',
+            'column': 'Columna',
+            'type': 'Tipo',
+            'status': 'Estado',
+        }
         widgets = {
-            'flight': forms.Select(attrs={'class': 'form-control'}),
+            'plane': forms.Select(attrs={'class': 'form-control'}),
             'number': forms.TextInput(attrs={'class': 'form-control'}),
             'row': forms.NumberInput(attrs={'class': 'form-control'}),
             'column': forms.TextInput(attrs={'class': 'form-control'}),
             'type': forms.Select(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+class TicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = [
+            'reservation',
+            'bar_code',
+            'status',
+        ]
+        labels = {
+            'reservation': 'Reserva',
+            'bar_code': 'Código de Barras',
+            'status': 'Estado',
+        }
+        widgets = {
+            'reservation': forms.Select(attrs={'class': 'form-control'}),
+            'bar_code': forms.TextInput(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
         }

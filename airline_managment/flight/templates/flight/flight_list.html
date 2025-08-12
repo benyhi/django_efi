@@ -21,7 +21,7 @@
             {% for flight in flights %}
             <tr>
                 <td>{{ flight.flight_number }}</td>
-                <td>{{ flight.plane_id }}</td>
+                <td>{{ flight.plane }}</td>
                 <td>{{ flight.departure_city }}</td>
                 <td>{{ flight.departure_date }}</td>
                 <td>{{ flight.departure_time }}</td>
@@ -30,6 +30,7 @@
                 <td>{{ flight.arrival_time }}</td>
                 <td>
                     <a href="{% url 'flight_update' flight.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'flight_delete' flight.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
                 </td>
             </tr>
             {% empty %}

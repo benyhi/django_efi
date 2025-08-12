@@ -15,5 +15,5 @@ class Passenger(models.Model):
     ], default='passport')
 
     def __str__(self):
-        return f"Pasajero: {self.first_name} {self.last_name} ({self.email})"
+        return f"Pasajero: {self.first_name} {self.last_name} "
     

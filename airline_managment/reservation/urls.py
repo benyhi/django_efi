@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     ReservationListView, ReservationCreateView, ReservationUpdateView, ReservationDeleteView,
-    SeatListView, SeatCreateView, SeatUpdateView, SeatDeleteView
+    SeatListView, SeatCreateView, SeatUpdateView, SeatDeleteView, TicketCreateView, TicketDeleteView, TicketListView, TicketUpdateView
 )
 
 urlpatterns = [
@@ -14,4 +14,9 @@ urlpatterns = [
     path('seats/create/', SeatCreateView.as_view(), name='seat_create'),
     path('seats/update/<int:pk>/', SeatUpdateView.as_view(), name='seat_update'),
     path('seats/delete/<int:pk>/', SeatDeleteView.as_view(), name='seat_delete'),
+
+    path('tickets/', TicketListView.as_view(), name='ticket_list'),
+    path('tickets/create/', TicketCreateView.as_view(), name='ticket_create'),
+    path('tickets/update/<int:pk>/', TicketUpdateView.as_view(), name='ticket_update'),
+    path('tickets/delete/<int:pk>/', TicketDeleteView.as_view(), name='ticket_delete'),
 ]

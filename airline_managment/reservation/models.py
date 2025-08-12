@@ -1,6 +1,7 @@
 from django.db import models
-
-# Create your models here.
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import uuid
 
 class Reservation(models.Model):
     flight = models.ForeignKey('flight.Flight', on_delete=models.CASCADE)
@@ -35,7 +36,7 @@ class Seat(models.Model):
     ], default='available')
 
     def __str__(self):
-        return f"Asiento {self.number} en vuelo {self.flight}"
+        return f"Asiento {self.number} en avion {self.plane}"
     
 class Ticket(models.Model):
     reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE)
@@ -48,3 +49,23 @@ class Ticket(models.Model):
 
     def __str__(self):
         return f"Ticket para {self.reservation} - Código de barras: {self.bar_code}"
+
+# --- Señal para crear un ticket al ingresar una reserva ---
+
+@receiver(post_save, sender=Reservation)
+def create_ticket_for_reservation(sender, instance, created, **kwargs):
+    if created:
+        if not hasattr(instance, 'ticket'):
+            Ticket.objects.create(
+                reservation=instance,
+                bar_code=str(uuid.uuid4()),
+                status='active'
+            )
+
+# --- Señal para cambiar estado de asiento a ocupado al crear reserva ---
+
+@receiver(post_save, sender=Reservation)
+def set_seat_occupied(sender, instance, created, **kwargs):
+    if created and instance.seat.status != 'occupied':
+        instance.seat.status = 'occupied'
+        instance.seat.save()
