@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Flights</h2>
-    <a href="{% url 'flight_create' %}" class="btn btn-primary mb-3">Add New Flight</a>
+    <h2>Vuelos</h2>
+    <a href="{% url 'flight_create' %}" class="btn btn-primary mb-3">Añadir Nuevo Vuelo</a>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Flight Number</th>
-                <th>Plane</th>
-                <th>Departure City</th>
-                <th>Departure Date</th>
-                <th>Departure Time</th>
-                <th>Arrival City</th>
-                <th>Arrival Date</th>
-                <th>Arrival Time</th>
-                <th>Actions</th>
+                <th>Número de Vuelo</th>
+                <th>Aeronave</th>
+                <th>Ciudad de Salida</th>
+                <th>Fecha de Salida</th>
+                <th>Hora de Salida</th>
+                <th>Ciudad de Llegada</th>
+                <th>Fecha de Llegada</th>
+                <th>Hora de Llegada</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -29,12 +29,12 @@
                 <td>{{ flight.arrival_date }}</td>
                 <td>{{ flight.arrival_time }}</td>
                 <td>
-                    <a href="{% url 'flight_update' flight.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'flight_update' flight.pk %}" class="btn btn-sm btn-warning">Editar</a>
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="9">No flights found.</td>
+                <td colspan="9">No se encontraron vuelos.</td>
             </tr>
             {% endfor %}
         </tbody>

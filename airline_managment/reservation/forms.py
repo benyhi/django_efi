@@ -5,16 +5,16 @@ class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
         fields = [
-            'passenger',
             'flight',
+            'passenger',
             'seat',
             'code',
             'price',
             'status',
         ]
         widgets = {
-            'passenger': forms.Select(attrs={'class': 'form-control'}),
             'flight': forms.Select(attrs={'class': 'form-control'}),
+            'passenger': forms.Select(attrs={'class': 'form-control'}),
             'seat': forms.Select(attrs={'class': 'form-control'}),
             'code': forms.TextInput(attrs={'class': 'form-control'}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -25,7 +25,7 @@ class SeatForm(forms.ModelForm):
     class Meta:
         model = Seat
         fields = [
-            'flight',
+            'plane',
             'number',
             'row',
             'column',

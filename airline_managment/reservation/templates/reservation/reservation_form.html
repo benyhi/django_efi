@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Create Reservation</h2>
+    <h2>Crear Reserva</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Save</button>
-        <a href="{% url 'reservation_list' %}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a href="{% url 'reservation_list' %}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 {% endblock content %}

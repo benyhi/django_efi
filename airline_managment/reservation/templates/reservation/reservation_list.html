@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Reservations</h2>
-    <a href="{% url 'reservation_create' %}" class="btn btn-primary mb-3">Add New Reservation</a>
+    <h2>Reservas</h2>
+    <a href="{% url 'reservation_create' %}" class="btn btn-primary mb-3">Añadir Nueva Reserva</a>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Flight</th>
-                <th>Passenger</th>
-                <th>Seat Number</th>
-                <th>Reservation Date</th>
-                <th>Actions</th>
+                <th>Vuelo</th>
+                <th>Pasajero</th>
+                <th>Número de Asiento</th>
+                <th>Fecha de Reserva</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -21,13 +21,13 @@
                 <td>{{ reservation.seat_number }}</td>
                 <td>{{ reservation.reservation_date }}</td>
                 <td>
-                    <a href="{% url 'reservation_update' reservation.pk %}" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="{% url 'reservation_delete' reservation.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                    <a href="{% url 'reservation_update' reservation.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'reservation_delete' reservation.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="5">No reservations found.</td>
+                <td colspan="5">No se encontraron reservas.</td>
             </tr>
             {% endfor %}
         </tbody>

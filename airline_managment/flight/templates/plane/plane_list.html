@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Planes</h2>
-    <a href="{% url 'plane_create' %}" class="btn btn-primary mb-3">Add New Plane</a>
+    <h2>Aviones</h2>
+    <a href="{% url 'plane_create' %}" class="btn btn-primary mb-3">Añadir Nuevo Avion</a>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Plane Number</th>
-                <th>Model</th>
-                <th>Capacity</th>
-                <th>Actions</th>
+                <th>Número de Avion</th>
+                <th>Modelo</th>
+                <th>Capacidad</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -19,12 +19,12 @@
                 <td>{{ plane.model }}</td>
                 <td>{{ plane.capacity }}</td>
                 <td>
-                    <a href="{% url 'plane_update' plane.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'plane_update' plane.pk %}" class="btn btn-sm btn-warning">Editar</a>
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4">No planes found.</td>
+                <td colspan="4">No se encontraron aviones.</td>
             </tr>
             {% endfor %}
         </tbody>

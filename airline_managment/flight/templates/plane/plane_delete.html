@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Delete Plane</h2>
-    <p>Are you sure you want to delete plane <strong>{{ object.plane_number }} - {{ object.model }}</strong>?</p>
+    <h2>Eliminar Avion</h2>
+    <p>Estas seguro que deseas eliminar el avion <strong>{{ object.plane_number }} - {{ object.model }}</strong>?</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Confirm Delete</button>
-        <a href="{% url 'plane_list' %}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+        <a href="{% url 'plane_list' %}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 {% endblock %}

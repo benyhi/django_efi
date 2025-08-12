@@ -1,29 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Seats</h2>
-    <a href="{% url 'seat_create' %}" class="btn btn-primary mb-3">Add New Seat</a>
+    <h2>Asientos</h2>
+    <a href="{% url 'seat_create' %}" class="btn btn-primary mb-3">Añadir nuevo asiento</a>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Seat Number</th>
-                <th>Plane</th>
-                <th>Actions</th>
+                <th>Número de Asiento</th>
+                <th>Vuelo</th>
+                <th>Fila</th>
+                <th>Columna</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for seat in seats %}
             <tr>
-                <td>{{ seat.seat_number }}</td>
-                <td>{{ seat.plane }}</td>
+                <td>{{ seat.number }}</td>
+                <td>{{ seat.flight }}</td>
+                <td>{{ seat.row }}</td>
+                <td>{{ seat.column }}</td>
+                <td>{{ seat.type }}</td>
+                <td>{{ seat.status }}</td>
                 <td>
-                    <a href="{% url 'seat_update' seat.pk %}" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="{% url 'seat_delete' seat.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                    <a href="{% url 'seat_update' seat.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'seat_delete' seat.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="3">No seats found.</td>
+                <td colspan="3">No se encontraron asientos.</td>
             </tr>
             {% endfor %}
         </tbody>

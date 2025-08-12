@@ -10,6 +10,8 @@ class PassengerForm(forms.ModelForm):
             'dni',
             'email',
             'phone_number',
+            'birth_date',
+            'dni_type',
         ]
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
@@ -17,4 +19,6 @@ class PassengerForm(forms.ModelForm):
             'dni': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'birth_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'dni_type': forms.Select(attrs={'class': 'form-control'}),
         }
