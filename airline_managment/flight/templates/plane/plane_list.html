@@ -22,6 +22,7 @@
                 <td>{{ plane.columns }}</td>
                 <td>
                     <a href="{% url 'plane_update' plane.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'plane_delete' plane.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
                 </td>
             </tr>
             {% empty %}

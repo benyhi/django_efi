@@ -50,18 +50,12 @@ class PlaneForm(forms.ModelForm):
         fields = [
             'model',
             'capacity',
-            'rows',
-            'columns',
         ]
         labels = {
             'model': 'Modelo',
             'capacity': 'Capacidad',
-            'rows': 'Filas',
-            'columns': 'Columnas',
         }
         widgets = {
             'model': forms.TextInput(attrs={'class': 'form-control'}),
             'capacity': forms.NumberInput(attrs={'class': 'form-control'}),
-            'rows': forms.NumberInput(attrs={'class': 'form-control'}),
-            'columns': forms.NumberInput(attrs={'class': 'form-control'}),
         }

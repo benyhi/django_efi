@@ -6,8 +6,8 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>Avion</th>
                 <th>Número de Asiento</th>
-                <th>Vuelo</th>
                 <th>Fila</th>
                 <th>Columna</th>
                 <th>Tipo</th>
@@ -18,8 +18,8 @@
         <tbody>
             {% for seat in seats %}
             <tr>
+                <td>{{ seat.plane }}</td>
                 <td>{{ seat.number }}</td>
-                <td>{{ seat.flight }}</td>
                 <td>{{ seat.row }}</td>
                 <td>{{ seat.column }}</td>
                 <td>{{ seat.type }}</td>

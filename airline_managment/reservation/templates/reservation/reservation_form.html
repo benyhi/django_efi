@@ -2,11 +2,16 @@
 {% block content %}
 <div class="container mt-4">
     <h2>Crear Reserva</h2>
-    <form method="post">
+    <form method="post" id="reservation-form">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-success">Guardar</button>
         <a href="{% url 'reservation_list' %}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
-{% endblock content %}
+<script>
+document.getElementById('id_flight').addEventListener('change', function() {
+    this.form.submit(); // Recarga el formulario para actualizar los asientos disponibles
+});
+</script>
+{% endblock %}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte de Vuelos y Pasajeros</title>
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 12px; }
+        h2 { text-align: center; }
+        .card { border: 1px solid #ccc; border-radius: 6px; margin-bottom: 24px; }
+        .card-header { background: #f2f2f2; padding: 8px 12px; font-weight: bold; }
+        .card-body { padding: 12px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #333; padding: 6px; text-align: center; }
+        th { background-color: #eaeaea; }
+        .alert-info { background: #e7f3fe; color: #31708f; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Reporte de Vuelos y Pasajeros</h2>
+    {% for item in vuelos_data %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <strong>Vuelo:</strong> {{ item.vuelo.flight_number }} |
+                <strong>Avión:</strong> {{ item.vuelo.plane }} |
+                <strong>Origen:</strong> {{ item.vuelo.departure_city }} ({{ item.vuelo.departure_date }} {{ item.vuelo.departure_time }}) |
+                <strong>Destino:</strong> {{ item.vuelo.arrival_city }} ({{ item.vuelo.arrival_date }} {{ item.vuelo.arrival_time }})
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Pasajeros</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>DNI</th>
+                            <th>Email</th>
+                            <th>Asiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reserva in item.reservas %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ reserva.passenger.first_name }}</td>
+                            <td>{{ reserva.passenger.last_name }}</td>
+                            <td>{{ reserva.passenger.dni }}</td>
+                            <td>{{ reserva.passenger.email }}</td>
+                            <td>{{ reserva.seat }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6">No hay pasajeros para este vuelo.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert-info">No hay vuelos registrados.</div>
+    {% endfor %}
+</div>
+</body>
+</html>

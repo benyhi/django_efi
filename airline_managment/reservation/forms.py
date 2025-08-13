@@ -2,11 +2,6 @@ from django import forms
 from .models import Reservation, Seat, Ticket
 
 class ReservationForm(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['seat'].queryset = Seat.objects.exclude(status='occupied')
-
     class Meta:
         model = Reservation
         fields = [
@@ -33,6 +28,26 @@ class ReservationForm(forms.ModelForm):
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['seat'].queryset = Seat.objects.none()
+
+        if 'flight' in self.data:
+            try:
+                flight_id = int(self.data.get('flight'))
+                flight = Reservation._meta.get_field('flight').related_model.objects.get(pk=flight_id)
+                plane = flight.plane
+                self.fields['seat'].queryset = Seat.objects.filter(
+                    plane=plane, status='available'
+                )
+            except (ValueError, TypeError, Reservation._meta.get_field('flight').related_model.DoesNotExist):
+                pass
+        elif self.instance.pk:
+            plane = self.instance.flight.plane
+            self.fields['seat'].queryset = Seat.objects.filter(
+                plane=plane, status='available'
+            ) | Seat.objects.filter(pk=self.instance.seat.pk)
 
     def clean_seat(self):
         seat = self.cleaned_data.get('seat')
