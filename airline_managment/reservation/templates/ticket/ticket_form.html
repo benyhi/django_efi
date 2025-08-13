@@ -1,22 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Crear Ticket</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="id_reservation" class="form-label">Reserva</label>
-            {{ form.reservation }}
+    <div class="card border-0 shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">
+                <i class="fas fa-receipt me-2"></i>
+                {% if object %}Editar Ticket{% else %}Crear Ticket{% endif %}
+            </h3>
         </div>
-        <div class="mb-3">
-            <label for="id_bar_code" class="form-label">Código de Barras</label>
-            {{ form.bar_code }}
+        <div class="card-body">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        {% if form.reservation %}
+                        <div class="form-floating mb-3">
+                            {{ form.reservation }}
+                            <label for="{{ form.reservation.id_for_label }}">{{ form.reservation.label }}</label>
+                        </div>
+                        {% endif %}
+                        {% if form.bar_code %}
+                        <div class="form-floating mb-3">
+                            {{ form.bar_code }}
+                            <label for="{{ form.bar_code.id_for_label }}">{{ form.bar_code.label }}</label>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        {% if form.status %}
+                        <div class="form-floating mb-3">
+                            {{ form.status }}
+                            <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="{% url 'ticket_list' %}" class="btn btn-outline-secondary me-md-2">
+                        <i class="fas fa-times-circle me-1"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i> Guardar Ticket
+                    </button>
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="id_status" class="form-label">Estado</label>
-            {{ form.status }}
-        </div>
-        <button type="submit" class="btn btn-primary">Crear Ticket</button>
-    </form>
+    </div>
 </div>
 {% endblock %}

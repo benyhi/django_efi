@@ -1,12 +1,63 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Crear Avion</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="{% url 'plane_list' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+    <div class="card border-0 shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">
+                <i class="fas fa-fighter-jet me-2"></i>
+                {% if object %}Editar Avión{% else %}Crear Avión{% endif %}
+            </h3>
+        </div>
+        <div class="card-body">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        {% if form.name %}
+                        <div class="form-floating mb-3">
+                            {{ form.name }}
+                            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        </div>
+                        {% endif %}
+                        {% if form.model %}
+                        <div class="form-floating mb-3">
+                            {{ form.model }}
+                            <label for="{{ form.model.id_for_label }}">{{ form.model.label }}</label>
+                        </div>
+                        {% endif %}
+                        {% if form.manufacturer %}
+                        <div class="form-floating mb-3">
+                            {{ form.manufacturer }}
+                            <label for="{{ form.manufacturer.id_for_label }}">{{ form.manufacturer.label }}</label>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        {% if form.capacity %}
+                        <div class="form-floating mb-3">
+                            {{ form.capacity }}
+                            <label for="{{ form.capacity.id_for_label }}">{{ form.capacity.label }}</label>
+                            <small class="text-muted">Cantidad de asientos</small>
+                        </div>
+                        {% endif %}
+                        {% if form.status %}
+                        <div class="form-floating mb-3">
+                            {{ form.status }}
+                            <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="{% url 'plane_list' %}" class="btn btn-outline-secondary me-md-2">
+                        <i class="fas fa-times-circle me-1"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i> Guardar Avión
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -1,12 +1,109 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="container mt-4">
-    <h2>Crear Vuelo</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="{% url 'flight_list' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+    <div class="card border-0 shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">
+                <i class="fas fa-plane me-2"></i>
+                {% if object %}Editar Vuelo{% else %}Crear Nuevo Vuelo{% endif %}
+            </h3>
+        </div>
+        <div class="card-body">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                
+                <div class="row g-3">
+                    <!-- Primera Columna -->
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            {{ form.flight_number }}
+                            <label for="{{ form.flight_number.id_for_label }}">{{ form.flight_number.label }}</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.plane }}
+                            <label for="{{ form.plane.id_for_label }}">{{ form.plane.label }}</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.departure_city }}
+                            <label for="{{ form.departure_city.id_for_label }}">{{ form.departure_city.label }}</label>
+                            <small class="text-muted">Ej: Ciudad de México</small>
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    {{ form.departure_date }}
+                                    <label for="{{ form.departure_date.id_for_label }}">Fecha Salida</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    {{ form.departure_time }}
+                                    <label for="{{ form.departure_time.id_for_label }}">Hora Salida</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Segunda Columna -->
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            {{ form.arrival_city }}
+                            <label for="{{ form.arrival_city.id_for_label }}">{{ form.arrival_city.label }}</label>
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    {{ form.arrival_date }}
+                                    <label for="{{ form.arrival_date.id_for_label }}">Fecha Llegada</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    {{ form.arrival_time }}
+                                    <label for="{{ form.arrival_time.id_for_label }}">Hora Llegada</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            {{ form.duration }}
+                            <label for="{{ form.duration.id_for_label }}">{{ form.duration.label }}</label>
+                            <small class="text-muted">En minutos</small>
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    {{ form.status }}
+                                    <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    {{ form.price }}
+                                    <label for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+                                    <small class="text-muted">USD</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="{% url 'flight_list' %}" class="btn btn-outline-secondary me-md-2">
+                        <i class="fas fa-times-circle me-1"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i> Guardar Vuelo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

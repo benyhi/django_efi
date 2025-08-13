@@ -1,12 +1,56 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Crear Asiento</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="{% url 'seat_list' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+    <div class="card border-0 shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">
+                <i class="fas fa-chair me-2"></i>
+                {% if object %}Editar Asiento{% else %}Crear Asiento{% endif %}
+            </h3>
+        </div>
+        <div class="card-body">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        {% if form.seat_number %}
+                        <div class="form-floating mb-3">
+                            {{ form.seat_number }}
+                            <label for="{{ form.seat_number.id_for_label }}">{{ form.seat_number.label }}</label>
+                        </div>
+                        {% endif %}
+                        {% if form.seat_class %}
+                        <div class="form-floating mb-3">
+                            {{ form.seat_class }}
+                            <label for="{{ form.seat_class.id_for_label }}">{{ form.seat_class.label }}</label>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        {% if form.plane %}
+                        <div class="form-floating mb-3">
+                            {{ form.plane }}
+                            <label for="{{ form.plane.id_for_label }}">{{ form.plane.label }}</label>
+                        </div>
+                        {% endif %}
+                        {% if form.status %}
+                        <div class="form-floating mb-3">
+                            {{ form.status }}
+                            <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="{% url 'seat_list' %}" class="btn btn-outline-secondary me-md-2">
+                        <i class="fas fa-times-circle me-1"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i> Guardar Asiento
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock content %}

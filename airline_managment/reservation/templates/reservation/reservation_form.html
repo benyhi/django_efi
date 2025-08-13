@@ -1,13 +1,57 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Crear Reserva</h2>
-    <form method="post" id="reservation-form">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="{% url 'reservation_list' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+    <div class="card border-0 shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">
+                <i class="fas fa-ticket-alt me-2"></i>
+                {% if object %}Editar Reserva{% else %}Crear Reserva{% endif %}
+            </h3>
+        </div>
+        <div class="card-body">
+            <form method="post" class="needs-validation" id="reservation-form" novalidate>
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        {% if form.flight %}
+                        <div class="form-floating mb-3">
+                            {{ form.flight }}
+                            <label for="{{ form.flight.id_for_label }}">{{ form.flight.label }}</label>
+                        </div>
+                        {% endif %}
+                        {% if form.passenger %}
+                        <div class="form-floating mb-3">
+                            {{ form.passenger }}
+                            <label for="{{ form.passenger.id_for_label }}">{{ form.passenger.label }}</label>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        {% if form.seat %}
+                        <div class="form-floating mb-3">
+                            {{ form.seat }}
+                            <label for="{{ form.seat.id_for_label }}">{{ form.seat.label }}</label>
+                        </div>
+                        {% endif %}
+                        {% if form.status %}
+                        <div class="form-floating mb-3">
+                            {{ form.status }}
+                            <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="{% url 'reservation_list' %}" class="btn btn-outline-secondary me-md-2">
+                        <i class="fas fa-times-circle me-1"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i> Guardar Reserva
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <script>
 document.getElementById('id_flight').addEventListener('change', function() {

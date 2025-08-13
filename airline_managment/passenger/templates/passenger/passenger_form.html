@@ -1,12 +1,68 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <h2>Crear Pasajero</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="{% url 'passenger_list' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+    <div class="card border-0 shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">
+                <i class="fas fa-user me-2"></i>
+                {% if object %}Editar Pasajero{% else %}Crear Pasajero{% endif %}
+            </h3>
+        </div>
+        <div class="card-body">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        {% if form.first_name %}
+                        <div class="form-floating mb-3">
+                            {{ form.first_name }}
+                            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                        </div>
+                        {% endif %}
+                        {% if form.last_name %}
+                        <div class="form-floating mb-3">
+                            {{ form.last_name }}
+                            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                        </div>
+                        {% endif %}
+                        {% if form.document_number %}
+                        <div class="form-floating mb-3">
+                            {{ form.document_number }}
+                            <label for="{{ form.document_number.id_for_label }}">{{ form.document_number.label }}</label>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        {% if form.email %}
+                        <div class="form-floating mb-3">
+                            {{ form.email }}
+                            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                        </div>
+                        {% endif %}
+                        {% if form.phone %}
+                        <div class="form-floating mb-3">
+                            {{ form.phone }}
+                            <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                        </div>
+                        {% endif %}
+                        {% if form.birth_date %}
+                        <div class="form-floating mb-3">
+                            {{ form.birth_date }}
+                            <label for="{{ form.birth_date.id_for_label }}">{{ form.birth_date.label }}</label>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="{% url 'passenger_list' %}" class="btn btn-outline-secondary me-md-2">
+                        <i class="fas fa-times-circle me-1"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i> Guardar Pasajero
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
