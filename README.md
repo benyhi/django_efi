@@ -86,3 +86,61 @@ Este proyecto es un sistema de gestión de vuelos, pasajeros, reservas, asientos
 Este proyecto es solo para fines educativos.
 
 ---
+
+DOCUMENTACION TECNICA - Sistema de Gestión de Aerolínea
+
+1. TECNOLOGÍAS USADAS
+---------------------
+- Python 3.10+
+- Django 4.x
+- SQLite (base de datos por defecto)
+- Bootstrap 5 (interfaz)
+- FontAwesome (iconos)
+
+2. ESTRUCTURA DEL PROYECTO
+--------------------------
+- airline_managment/ (carpeta principal)
+  - flight/ (vuelos y aviones)
+  - passenger/ (pasajeros)
+  - reservation/ (reservas, asientos, tickets)
+  - user/ (usuarios y autenticación)
+  - templates/ (HTML)
+  - static/ (CSS, JS)
+- requirements.txt (dependencias)
+
+3. FUNCIONALIDADES
+------------------
+- CRUD de vuelos, aviones, pasajeros, reservas, asientos, tickets y usuarios.
+- Autenticación de usuarios (login/logout).
+- Panel de administración Django.
+- Reportes PDF de vuelos y pasajeros.
+- Página de inicio con acceso rápido a cada módulo.
+
+4. MODELOS PRINCIPALES
+----------------------
+- Plane: datos de aviones.
+- Flight: datos de vuelos.
+- Passenger: datos de pasajeros.
+- Reservation: reservas de asientos.
+- Seat: asientos disponibles.
+- Ticket: tickets generados.
+- User: usuarios del sistema.
+
+5. USO BÁSICO
+-------------
+- Instalar dependencias: `pip install -r requirements.txt`
+- Migrar base de datos: `python manage.py migrate`
+- Crear superusuario: `python manage.py createsuperuser`
+- Ejecutar servidor: `python manage.py runserver`
+- Acceder vía navegador: `http://127.0.0.1:8000/`
+
+6. PERSONALIZACIÓN
+------------------
+- Editar estilos en `static/styles/forms.css`
+- Modificar plantillas en `templates/`
+- Cambiar configuración en `settings.py`
+
+7. SEGURIDAD
+------------
+- Formularios protegidos con CSRF.
+- Permisos para usuarios staff y clientes.
