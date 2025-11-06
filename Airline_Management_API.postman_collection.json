@@ -1,0 +1,1043 @@
+{
+	"info": {
+		"_postman_id": "airline-management-api",
+		"name": "Airline Management API",
+		"description": "Colección completa de endpoints para el sistema de gestión de aerolíneas Django Rest Framework",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refresh_token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "🔐 Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('access_token', response.access);",
+									"    pm.collectionVariables.set('refresh_token', response.refresh);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"newuser\",\n    \"email\": \"newuser@example.com\",\n    \"password\": \"securepass123\",\n    \"password_confirm\": \"securepass123\",\n    \"first_name\": \"New\",\n    \"last_name\": \"User\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('access_token', response.access);",
+									"    pm.collectionVariables.set('refresh_token', response.refresh);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"newuser\",\n    \"password\": \"securepass123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('access_token', response.access);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh\": \"{{refresh_token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/refresh",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "refresh"]
+						}
+					}
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verificar respuesta de logout",
+									"if (pm.response.code === 200) {",
+									"    console.log('Logout exitoso');",
+									"} else {",
+									"    console.log('Error en logout:', pm.response.text());",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh\": \"{{refresh_token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/logout",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "logout"]
+						}
+					}
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/profile",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "profile"]
+						}
+					}
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Updated\",\n    \"last_name\": \"Name\",\n    \"email\": \"updated@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/profile/update/",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "profile", "update", ""]
+						}
+					}
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"old_password\": \"securepass123\",\n    \"new_password\": \"newsecurepass456\",\n    \"new_password_confirm\": \"newsecurepass456\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/change-password/",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "change-password", ""]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "✈️ Flights",
+			"item": [
+				{
+					"name": "Get All Flights",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/flights/",
+							"host": ["{{base_url}}"],
+							"path": ["flights", ""],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "origin",
+									"value": "Madrid",
+									"disabled": true
+								},
+								{
+									"key": "destination",
+									"value": "Barcelona",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Flight by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/flights/1/",
+							"host": ["{{base_url}}"],
+							"path": ["flights", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Create Flight",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"flight_number\": \"FL001\",\n    \"plane\": 1,\n    \"origin\": \"Madrid\",\n    \"destination\": \"Barcelona\",\n    \"departure_time\": \"2024-12-25T10:00:00Z\",\n    \"arrival_time\": \"2024-12-25T12:00:00Z\",\n    \"price\": 150.00\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/flights/",
+							"host": ["{{base_url}}"],
+							"path": ["flights", ""]
+						}
+					}
+				},
+				{
+					"name": "Update Flight",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"flight_number\": \"FL001\",\n    \"plane\": 1,\n    \"origin\": \"Madrid\",\n    \"destination\": \"Valencia\",\n    \"departure_time\": \"2024-12-25T10:00:00Z\",\n    \"arrival_time\": \"2024-12-25T12:00:00Z\",\n    \"price\": 180.00\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/flights/1/",
+							"host": ["{{base_url}}"],
+							"path": ["flights", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Partial Update Flight",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 200.00\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/flights/1/",
+							"host": ["{{base_url}}"],
+							"path": ["flights", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Delete Flight",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/flights/1/",
+							"host": ["{{base_url}}"],
+							"path": ["flights", "1", ""]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "✈️ Planes",
+			"item": [
+				{
+					"name": "Get All Planes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/planes/",
+							"host": ["{{base_url}}"],
+							"path": ["planes", ""],
+							"query": [
+								{
+									"key": "model",
+									"value": "Boeing 737",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Plane by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/planes/1/",
+							"host": ["{{base_url}}"],
+							"path": ["planes", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Create Plane",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"model\": \"Boeing 737\",\n    \"capacity\": 180,\n    \"rows\": 30,\n    \"columns\": 6\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/planes/",
+							"host": ["{{base_url}}"],
+							"path": ["planes", ""]
+						}
+					}
+				},
+				{
+					"name": "Update Plane",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"model\": \"Boeing 737\",\n    \"capacity\": 190,\n    \"rows\": 32,\n    \"columns\": 6\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/planes/1/",
+							"host": ["{{base_url}}"],
+							"path": ["planes", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Delete Plane",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/planes/1/",
+							"host": ["{{base_url}}"],
+							"path": ["planes", "1", ""]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "👥 Passengers",
+			"item": [
+				{
+					"name": "Get All Passengers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/passengers/",
+							"host": ["{{base_url}}"],
+							"path": ["passengers", ""],
+							"query": [
+								{
+									"key": "search",
+									"value": "Pérez",
+									"disabled": true
+								},
+								{
+									"key": "first_name",
+									"value": "Juan",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Passenger by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/passengers/1/",
+							"host": ["{{base_url}}"],
+							"path": ["passengers", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Create Passenger",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Juan\",\n    \"last_name\": \"Pérez\",\n    \"email\": \"juan.perez@example.com\",\n    \"phone\": \"123456789\",\n    \"date_of_birth\": \"1990-05-15\",\n    \"passport_number\": \"ABC123456\",\n    \"nationality\": \"Spanish\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/passengers/",
+							"host": ["{{base_url}}"],
+							"path": ["passengers", ""]
+						}
+					}
+				},
+				{
+					"name": "Update Passenger",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Juan Carlos\",\n    \"last_name\": \"Pérez\",\n    \"email\": \"juancarlos.perez@example.com\",\n    \"phone\": \"123456789\",\n    \"date_of_birth\": \"1990-05-15\",\n    \"passport_number\": \"ABC123456\",\n    \"nationality\": \"Spanish\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/passengers/1/",
+							"host": ["{{base_url}}"],
+							"path": ["passengers", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Partial Update Passenger",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"111222333\",\n    \"nationality\": \"French\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/passengers/1/",
+							"host": ["{{base_url}}"],
+							"path": ["passengers", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Delete Passenger",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/passengers/1/",
+							"host": ["{{base_url}}"],
+							"path": ["passengers", "1", ""]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "🎫 Reservations",
+			"item": [
+				{
+					"name": "Get All Reservations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reservations/",
+							"host": ["{{base_url}}"],
+							"path": ["reservations", ""],
+							"query": [
+								{
+									"key": "status",
+									"value": "confirmed",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Reservation by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reservations/1/",
+							"host": ["{{base_url}}"],
+							"path": ["reservations", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Create Reservation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"flight\": 1,\n    \"passenger\": 1,\n    \"reservation_date\": \"2024-12-01T14:00:00Z\",\n    \"status\": \"confirmed\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/reservations/",
+							"host": ["{{base_url}}"],
+							"path": ["reservations", ""]
+						}
+					}
+				},
+				{
+					"name": "Update Reservation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"flight\": 1,\n    \"passenger\": 1,\n    \"reservation_date\": \"2024-12-01T14:00:00Z\",\n    \"status\": \"cancelled\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/reservations/1/",
+							"host": ["{{base_url}}"],
+							"path": ["reservations", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Delete Reservation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reservations/1/",
+							"host": ["{{base_url}}"],
+							"path": ["reservations", "1", ""]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "💺 Seats",
+			"item": [
+				{
+					"name": "Get All Seats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seats/",
+							"host": ["{{base_url}}"],
+							"path": ["seats", ""],
+							"query": [
+								{
+									"key": "flight",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "is_available",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Seat by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seats/1/",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Create Seat",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"flight\": 1,\n    \"seat_number\": \"1A\",\n    \"seat_class\": \"economy\",\n    \"is_available\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/seats/",
+							"host": ["{{base_url}}"],
+							"path": ["seats", ""]
+						}
+					}
+				},
+				{
+					"name": "Update Seat",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"flight\": 1,\n    \"seat_number\": \"1A\",\n    \"seat_class\": \"business\",\n    \"is_available\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/seats/1/",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Delete Seat",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seats/1/",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "1", ""]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "🎟️ Tickets",
+			"item": [
+				{
+					"name": "Get All Tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tickets/",
+							"host": ["{{base_url}}"],
+							"path": ["tickets", ""],
+							"query": [
+								{
+									"key": "reservation",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Ticket by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tickets/1/",
+							"host": ["{{base_url}}"],
+							"path": ["tickets", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Create Ticket",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reservation\": 1,\n    \"seat\": 1,\n    \"ticket_number\": \"TKT001\",\n    \"issue_date\": \"2024-12-01T14:30:00Z\",\n    \"price\": \"150.00\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/tickets/",
+							"host": ["{{base_url}}"],
+							"path": ["tickets", ""]
+						}
+					}
+				},
+				{
+					"name": "Update Ticket",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reservation\": 1,\n    \"seat\": 1,\n    \"ticket_number\": \"TKT001\",\n    \"issue_date\": \"2024-12-01T14:30:00Z\",\n    \"price\": \"180.00\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/tickets/1/",
+							"host": ["{{base_url}}"],
+							"path": ["tickets", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Delete Ticket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tickets/1/",
+							"host": ["{{base_url}}"],
+							"path": ["tickets", "1", ""]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "👤 Users Management",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/users/",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "users", ""]
+						}
+					}
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/users/1/",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "users", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Create User (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"adminuser\",\n    \"email\": \"admin@example.com\",\n    \"password\": \"adminpass123\",\n    \"first_name\": \"Admin\",\n    \"last_name\": \"User\",\n    \"is_staff\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/users/",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "users", ""]
+						}
+					}
+				},
+				{
+					"name": "Update User (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"updateduser\",\n    \"email\": \"updated@example.com\",\n    \"first_name\": \"Updated\",\n    \"last_name\": \"User\",\n    \"is_active\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/users/1/",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "users", "1", ""]
+						}
+					}
+				},
+				{
+					"name": "Delete User (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/users/1/",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "users", "1", ""]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "📊 Reports",
+			"item": [
+				{
+					"name": "Passengers by Flight",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reports/passengers-by-flight/?flight_id=1",
+							"host": ["{{base_url}}"],
+							"path": ["reports", "passengers-by-flight", ""],
+							"query": [
+								{
+									"key": "flight_id",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Active Reservations by Passenger",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reports/active-reservations-by-passenger/?passenger_id=1",
+							"host": ["{{base_url}}"],
+							"path": ["reports", "active-reservations-by-passenger", ""],
+							"query": [
+								{
+									"key": "passenger_id",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Flight Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reports/flight-statistics/",
+							"host": ["{{base_url}}"],
+							"path": ["reports", "flight-statistics", ""]
+						}
+					}
+				},
+				{
+					"name": "Reservation Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reports/reservation-statistics/",
+							"host": ["{{base_url}}"],
+							"path": ["reports", "reservation-statistics", ""]
+						}
+					}
+				},
+				{
+					"name": "Passenger Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/reports/passenger-statistics/",
+							"host": ["{{base_url}}"],
+							"path": ["reports", "passenger-statistics", ""]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "📚 Documentation",
+			"item": [
+				{
+					"name": "Swagger UI",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/docs/",
+							"host": ["{{base_url}}"],
+							"path": ["docs", ""]
+						}
+					}
+				},
+				{
+					"name": "ReDoc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/redoc/",
+							"host": ["{{base_url}}"],
+							"path": ["redoc", ""]
+						}
+					}
+				},
+				{
+					"name": "OpenAPI Schema (JSON)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/swagger.json",
+							"host": ["{{base_url}}"],
+							"path": ["swagger.json"]
+						}
+					}
+				}
+			]
+		}
+	]
+}

@@ -50,8 +50,6 @@ class Ticket(models.Model):
     def __str__(self):
         return f"Ticket para {self.reservation} - Código de barras: {self.bar_code}"
 
-# --- Señal para crear un ticket al ingresar una reserva ---
-
 @receiver(post_save, sender=Reservation)
 def create_ticket_for_reservation(sender, instance, created, **kwargs):
     if created:
@@ -61,8 +59,6 @@ def create_ticket_for_reservation(sender, instance, created, **kwargs):
                 bar_code=str(uuid.uuid4()),
                 status='active'
             )
-
-# --- Señal para cambiar estado de asiento a ocupado al crear reserva ---
 
 @receiver(post_save, sender=Reservation)
 def set_seat_occupied(sender, instance, created, **kwargs):

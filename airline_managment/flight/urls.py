@@ -1,18 +1,11 @@
-from django.urls import path
-from .views import (
-    FlightListView, FlightCreateView, FlightUpdateView, FlightDeleteView,
-    PlaneListView, PlaneCreateView, PlaneUpdateView, PlaneDeleteView, FlightReportPDFView
-)
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import FlightViewSet, PlaneViewSet
+
+router = DefaultRouter()
+router.register(r'flights', FlightViewSet)
+router.register(r'planes', PlaneViewSet)
 
 urlpatterns = [
-    path('', FlightListView.as_view(), name='flight_list'),
-    path('create/', FlightCreateView.as_view(), name='flight_create'),
-    path('update/<int:pk>/', FlightUpdateView.as_view(), name='flight_update'),
-    path('delete/<int:pk>/', FlightDeleteView.as_view(), name='flight_delete'),
-    path('report/pdf/', FlightReportPDFView.as_view(), name='flight_report'),
-
-    path('planes/', PlaneListView.as_view(), name='plane_list'),
-    path('planes/create/', PlaneCreateView.as_view(), name='plane_create'),
-    path('planes/update/<int:pk>/', PlaneUpdateView.as_view(), name='plane_update'),
-    path('planes/delete/<int:pk>/', PlaneDeleteView.as_view(), name='plane_delete'),
+    path('', include(router.urls)),
 ]

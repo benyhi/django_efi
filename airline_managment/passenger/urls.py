@@ -1,9 +1,10 @@
-from django.urls import path
-from .views import PassengerListView, PassengerCreateView, PassengerUpdateView, PassengerDeleteView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import PassengerViewSet
+
+router = DefaultRouter()
+router.register(r'passengers', PassengerViewSet)
 
 urlpatterns = [
-    path('', PassengerListView.as_view(), name='passenger_list'),
-    path('create/', PassengerCreateView.as_view(), name='passenger_create'),
-    path('update/<int:pk>/', PassengerUpdateView.as_view(), name='passenger_update'),
-    path('delete/<int:pk>/', PassengerDeleteView.as_view(), name='passenger_delete'),
+    path('', include(router.urls)),
 ]

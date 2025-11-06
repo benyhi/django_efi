@@ -1,22 +1,12 @@
-from django.urls import path
-from .views import (
-    ReservationListView, ReservationCreateView, ReservationUpdateView, ReservationDeleteView,
-    SeatListView, SeatCreateView, SeatUpdateView, SeatDeleteView, TicketCreateView, TicketDeleteView, TicketListView, TicketUpdateView
-)
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import ReservationViewSet, SeatViewSet, TicketViewSet
+
+router = DefaultRouter()
+router.register(r'reservations', ReservationViewSet)
+router.register(r'seats', SeatViewSet)
+router.register(r'tickets', TicketViewSet)
 
 urlpatterns = [
-    path('', ReservationListView.as_view(), name='reservation_list'),
-    path('create/', ReservationCreateView.as_view(), name='reservation_create'),
-    path('update/<int:pk>/', ReservationUpdateView.as_view(), name='reservation_update'),
-    path('delete/<int:pk>/', ReservationDeleteView.as_view(), name='reservation_delete'),
-
-    path('seats/', SeatListView.as_view(), name='seat_list'),
-    path('seats/create/', SeatCreateView.as_view(), name='seat_create'),
-    path('seats/update/<int:pk>/', SeatUpdateView.as_view(), name='seat_update'),
-    path('seats/delete/<int:pk>/', SeatDeleteView.as_view(), name='seat_delete'),
-
-    path('tickets/', TicketListView.as_view(), name='ticket_list'),
-    path('tickets/create/', TicketCreateView.as_view(), name='ticket_create'),
-    path('tickets/update/<int:pk>/', TicketUpdateView.as_view(), name='ticket_update'),
-    path('tickets/delete/<int:pk>/', TicketDeleteView.as_view(), name='ticket_delete'),
+    path('', include(router.urls)),
 ]
